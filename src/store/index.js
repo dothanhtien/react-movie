@@ -3,8 +3,9 @@ import thunkMiddleware from "redux-thunk";
 
 // reducers
 import auth from "./reducers/auth";
+import me from "./reducers/me";
 
-const reducer = combineReducers({ auth });
+const reducer = combineReducers({ auth, me });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(

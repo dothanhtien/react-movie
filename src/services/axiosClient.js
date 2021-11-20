@@ -5,7 +5,7 @@ const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
   headers: {
     "content-type": "application/json",
-    TokenCybersoft: REACT_APP_TOKEN_CYBERSOFT,
+    TokenCybersoft: process.env.REACT_APP_TOKEN_CYBERSOFT,
   },
 });
 
@@ -34,3 +34,5 @@ axiosClient.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+export default axiosClient;
