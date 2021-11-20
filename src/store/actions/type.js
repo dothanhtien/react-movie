@@ -1,7 +1,8 @@
 export const actionType = {
   // auth
   SIGNIN_SUCCESS: "SIGNIN_SUCCESS",
-  SIGNIN_FAILURE: "SIGNIN_FAILURE",
+  SIGNUP_SUCCESS: "SIGNUP_SUCCESS",
+  SET_AUTH_ERROR: "SET_AUTH_ERROR",
 
   // movie
   // booking

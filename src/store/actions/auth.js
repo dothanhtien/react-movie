@@ -4,7 +4,7 @@ import { authService } from "../../services";
 
 export const signIn = (data, callback) => {
   return async (dispatch) => {
-    dispatch(createAction(actionType.SIGNIN_FAILURE, null));
+    dispatch(createAction(actionType.SET_AUTH_ERROR, null));
 
     try {
       const res = await authService.signIn(data);
@@ -13,8 +13,24 @@ export const signIn = (data, callback) => {
 
       if (callback) callback();
     } catch (err) {
-      console.log({ ...err });
-      dispatch(createAction(actionType.SIGNIN_FAILURE, err.response.data));
+      console.log(err);
+      dispatch(createAction(actionType.SET_AUTH_ERROR, err.response.data));
+    }
+  };
+};
+
+export const signUp = (data, callback) => {
+  return async (dispatch) => {
+    dispatch(createAction(actionType.SET_AUTH_ERROR, null));
+    try {
+      await authService.signUp(data);
+
+      dispatch(createAction(actionType.SIGNUP_SUCCESS));
+
+      if (callback) callback();
+    } catch (err) {
+      console.log(err);
+      dispatch(createAction(actionType.SET_AUTH_ERROR, err.response.data));
     }
   };
 };

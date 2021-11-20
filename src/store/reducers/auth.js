@@ -6,7 +6,7 @@ const initialState = {
 
 const reducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case actionType.SIGNIN_FAILURE:
+    case actionType.SET_AUTH_ERROR:
       state.error = payload;
       return { ...state };
     default:
