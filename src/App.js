@@ -1,9 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ACCESS_TOKEN } from "./utils/constants/appConfig";
-import { IgnoreAuth, RequireAuth } from "./HOCs/routes";
+import { ACCESS_TOKEN } from "./constants/appConfig";
 import { fetchMe } from "./store/actions/auth";
+
+// routes
+import { IgnoreAuth, RequireAuth } from "./HOCs/routes";
+
+// layouts
+import AuthLayout from "./HOCs/layouts/Auth";
 
 // views
 import SignIn from "./views/Auth/SignIn";
@@ -25,30 +30,26 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <IgnoreAuth redirectPath="/admin">
-              <Home />
-            </IgnoreAuth>
-          }
-        />
-        <Route
-          path="/signin"
-          element={
-            <IgnoreAuth redirectPath="/admin">
-              <SignIn />
-            </IgnoreAuth>
-          }
-        />
-        <Route
-          path="/signup"
-          element={
-            <IgnoreAuth redirectPath="/admin">
-              <SignUp />
-            </IgnoreAuth>
-          }
-        />
+        <Route path="/" element={<Home />} />
+        <Route element={<AuthLayout />}>
+          <Route
+            path="/signin"
+            element={
+              <IgnoreAuth redirectPath="/admin">
+                <SignIn />
+              </IgnoreAuth>
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <IgnoreAuth redirectPath="/admin">
+                <SignUp />
+              </IgnoreAuth>
+            }
+          />
+        </Route>
+
         <Route
           path="/admin"
           element={

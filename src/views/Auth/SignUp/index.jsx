@@ -1,22 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Box } from "@mui/system";
 import { LoadingButton } from "@mui/lab";
-import {
-  Alert,
-  Button,
-  Container,
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Alert, Button, TextField, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { signUpSchema } from "../../../services/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { signUp } from "../../../store/actions/auth";
-import { GROUP_ID } from "../../../utils/constants/appConfig";
-import { ReactComponent as SigninImage } from "../../../assets/img/login-img.svg";
+import { GROUP_ID } from "../../../constants/appConfig";
 import useStyles from "./style";
 
 const SignUp = () => {
@@ -68,194 +60,163 @@ const SignUp = () => {
   };
 
   return (
-    <Box height="100vh" display="flex" alignItems="center">
-      <Container fixed>
-        <Grid container justifyContent="center" alignItems="center" spacing={0}>
-          <Grid item md={6} className={classes.gridImage}>
-            <SigninImage className={classes.signUpImg} />
-          </Grid>
+    <Box maxWidth={400}>
+      <Typography variant="h4" component="h1" mb={1} textAlign="center">
+        {process.env.REACT_APP_NAME ? process.env.REACT_APP_NAME : "Sign up"}
+      </Typography>
 
-          <Grid
-            item
-            md={6}
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Box maxWidth={400}>
-              <Typography variant="h4" component="h1" mb={1} textAlign="center">
-                {process.env.REACT_APP_NAME
-                  ? process.env.REACT_APP_NAME
-                  : "Sign up"}
-              </Typography>
+      {showSuccessAlert && (
+        <Alert severity="success" onClose={() => setShowSuccessAlert(false)}>
+          The Account created successfully.{" "}
+          <Link to="/signin" className={classes.alertLink}>
+            Sign in now
+          </Link>
+        </Alert>
+      )}
 
-              {showSuccessAlert && (
-                <Alert
-                  severity="success"
-                  onClose={() => setShowSuccessAlert(false)}
-                >
-                  The Account created successfully.{" "}
-                  <Link to="/signin" className={classes.alertLink}>
-                    Sign in now
-                  </Link>
-                </Alert>
-              )}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Controller
+          name="taiKhoan"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              label={
+                <>
+                  Username
+                  <span className={classes.labelMandatory}>&nbsp;*</span>
+                </>
+              }
+              variant="outlined"
+              size="small"
+              fullWidth
+              margin="normal"
+              {...field}
+              error={!!errors.taiKhoan?.message}
+              helperText={errors.taiKhoan?.message}
+            />
+          )}
+        />
 
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <Controller
-                  name="taiKhoan"
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      label={
-                        <>
-                          Username
-                          <span className={classes.labelMandatory}>
-                            &nbsp;*
-                          </span>
-                        </>
-                      }
-                      variant="outlined"
-                      size="small"
-                      fullWidth
-                      margin="normal"
-                      {...field}
-                      error={!!errors.taiKhoan?.message}
-                      helperText={errors.taiKhoan?.message}
-                    />
-                  )}
-                />
+        <Controller
+          name="email"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              type="email"
+              label={
+                <>
+                  Email
+                  <span className={classes.labelMandatory}>&nbsp;*</span>
+                </>
+              }
+              variant="outlined"
+              size="small"
+              fullWidth
+              margin="normal"
+              {...field}
+              error={!!errors.email?.message}
+              helperText={errors.email?.message}
+            />
+          )}
+        />
 
-                <Controller
-                  name="email"
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      type="email"
-                      label={
-                        <>
-                          Email
-                          <span className={classes.labelMandatory}>
-                            &nbsp;*
-                          </span>
-                        </>
-                      }
-                      variant="outlined"
-                      size="small"
-                      fullWidth
-                      margin="normal"
-                      {...field}
-                      error={!!errors.email?.message}
-                      helperText={errors.email?.message}
-                    />
-                  )}
-                />
+        <Controller
+          name="hoTen"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              label="Full name"
+              variant="outlined"
+              size="small"
+              fullWidth
+              margin="normal"
+              {...field}
+            />
+          )}
+        />
 
-                <Controller
-                  name="hoTen"
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      label="Full name"
-                      variant="outlined"
-                      size="small"
-                      fullWidth
-                      margin="normal"
-                      {...field}
-                    />
-                  )}
-                />
+        <Controller
+          name="soDt"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              label="Phone number"
+              variant="outlined"
+              size="small"
+              fullWidth
+              margin="normal"
+              {...field}
+              error={!!errors.soDt?.message}
+              helperText={errors.soDt?.message}
+            />
+          )}
+        />
 
-                <Controller
-                  name="soDt"
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      label="Phone number"
-                      variant="outlined"
-                      size="small"
-                      fullWidth
-                      margin="normal"
-                      {...field}
-                      error={!!errors.soDt?.message}
-                      helperText={errors.soDt?.message}
-                    />
-                  )}
-                />
+        <Controller
+          name="matKhau"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              type="password"
+              label={
+                <>
+                  Password
+                  <span className={classes.labelMandatory}>&nbsp;*</span>
+                </>
+              }
+              variant="outlined"
+              size="small"
+              fullWidth
+              margin="normal"
+              {...field}
+              error={!!errors.matKhau?.message}
+              helperText={errors.matKhau?.message}
+            />
+          )}
+        />
 
-                <Controller
-                  name="matKhau"
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      type="password"
-                      label={
-                        <>
-                          Password
-                          <span className={classes.labelMandatory}>
-                            &nbsp;*
-                          </span>
-                        </>
-                      }
-                      variant="outlined"
-                      size="small"
-                      fullWidth
-                      margin="normal"
-                      {...field}
-                      error={!!errors.matKhau?.message}
-                      helperText={errors.matKhau?.message}
-                    />
-                  )}
-                />
+        <Controller
+          name="matKhauXacNhan"
+          control={control}
+          render={({ field }) => (
+            <TextField
+              type="password"
+              label={
+                <>
+                  Password confirmation
+                  <span className={classes.labelMandatory}>&nbsp;*</span>
+                </>
+              }
+              variant="outlined"
+              size="small"
+              fullWidth
+              margin="normal"
+              {...field}
+              error={!!errors.matKhauXacNhan?.message}
+              helperText={errors.matKhauXacNhan?.message}
+            />
+          )}
+        />
 
-                <Controller
-                  name="matKhauXacNhan"
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      type="password"
-                      label={
-                        <>
-                          Password confirmation
-                          <span className={classes.labelMandatory}>
-                            &nbsp;*
-                          </span>
-                        </>
-                      }
-                      variant="outlined"
-                      size="small"
-                      fullWidth
-                      margin="normal"
-                      {...field}
-                      error={!!errors.matKhauXacNhan?.message}
-                      helperText={errors.matKhauXacNhan?.message}
-                    />
-                  )}
-                />
+        <LoadingButton
+          type="submit"
+          variant="contained"
+          fullWidth
+          style={{ marginTop: 16 }}
+          loading={false}
+        >
+          Sign up
+        </LoadingButton>
 
-                <LoadingButton
-                  type="submit"
-                  variant="contained"
-                  fullWidth
-                  style={{ marginTop: 16 }}
-                  loading={false}
-                >
-                  Sign up
-                </LoadingButton>
-
-                <Button
-                  fullWidth
-                  component={Link}
-                  to="/signin"
-                  style={{ marginTop: 8 }}
-                >
-                  Already have account. Sign in now
-                </Button>
-              </form>
-            </Box>
-          </Grid>
-        </Grid>
-      </Container>
+        <Button
+          fullWidth
+          component={Link}
+          to="/signin"
+          style={{ marginTop: 8 }}
+        >
+          Already have account. Sign in now
+        </Button>
+      </form>
     </Box>
   );
 };
