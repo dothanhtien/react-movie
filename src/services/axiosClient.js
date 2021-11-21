@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ACCESS_TOKEN } from "../utils/constants/appConfig";
+import { ACCESS_TOKEN } from "../constants/appConfig";
 
 // Set config defaults when creating the instance
 const axiosClient = axios.create({

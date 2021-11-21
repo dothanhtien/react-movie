@@ -1,7 +1,7 @@
 import { createAction } from ".";
 import { actionType } from "./type";
 import { authService } from "../../services";
-import { ACCESS_TOKEN } from "../../utils/constants/appConfig";
+import { ACCESS_TOKEN } from "../../constants/appConfig";
 
 export const signIn = (data, callback) => {
   return async (dispatch) => {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import { ACCESS_TOKEN } from "../../utils/constants/appConfig";
+import { ACCESS_TOKEN } from "../../constants/appConfig";
 
 const createRoute = (condition) => {
   return ({ children, redirectPath }) => {
