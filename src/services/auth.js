@@ -36,6 +36,10 @@ class AuthService {
   signUp(data) {
     return axiosClient.post("/api/QuanLyNguoiDung/DangKy", data);
   }
+
+  fetchMe() {
+    return axiosClient.post("/api/QuanLyNguoiDung/ThongTinTaiKhoan");
+  }
 }
 
 export default AuthService;

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { ACCESS_TOKEN } from "../utils/constants/appConfig";
 
 // Set config defaults when creating the instance
 const axiosClient = axios.create({
@@ -13,6 +14,12 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(
   (config) => {
     // Do something before request is sent
+    const token = localStorage.getItem(ACCESS_TOKEN);
+
+    if (token) {
+      config.headers.Authorization = "Bearer " + token;
+    }
+
     return config;
   },
   (error) => {
