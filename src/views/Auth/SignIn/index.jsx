@@ -48,7 +48,7 @@ const SignIn = () => {
   return (
     <Box height="100vh" display="flex" alignItems="center">
       <Container fixed>
-        <Grid container justifyContent="center" spacing={0}>
+        <Grid container justifyContent="center" alignItems="center" spacing={0}>
           <Grid item md={6} className={classes.gridImage}>
             <SigninImage className={classes.signinImg} />
           </Grid>
@@ -103,7 +103,7 @@ const SignIn = () => {
 
                 {(!!Object.keys(errors).length || authError) && (
                   <Alert severity="error" style={{ marginTop: 8 }}>
-                    Invalid email or password
+                    Invalid username or password
                   </Alert>
                 )}
 
@@ -120,7 +120,7 @@ const SignIn = () => {
                 <Button
                   fullWidth
                   component={Link}
-                  to="/"
+                  to="/signup"
                   style={{ marginTop: 8 }}
                 >
                   Don't have an account? Sign up now
