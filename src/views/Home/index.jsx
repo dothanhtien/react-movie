@@ -1,25 +1,36 @@
-import React from "react";
-import { Button, Container, Stack, Typography } from "@mui/material";
+import React, { useEffect } from "react";
 import { Box } from "@mui/system";
-import { Link } from "react-router-dom";
+import { Container } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { fetchAllMovies } from "../../store/actions/movie";
+import Header from "../../HOCs/layouts/Home/Header";
+import Carousel from "../../HOCs/layouts/Home/Carousel";
+import MovieList from "../../components/Home/MovieList";
+import Contact from "../../HOCs/layouts/Home/Contact";
+import Footer from "../../HOCs/layouts/Home/Footer";
 
 const Home = () => {
-  return (
-    <Box py={4}>
-      <Container fixed>
-        <Typography variant="h3" component="h1" mb={2}>
-          Home page goes here!
-        </Typography>
+  const dispatch = useDispatch();
 
-        <Stack spacing={2} direction="row">
-          <Button variant="text">Text</Button>
-          <Button variant="contained">Contained</Button>
-          <Button variant="outlined">Outlined</Button>
-          <Button variant="outlined" component={Link} to="/admin">
-            Admin page
-          </Button>
-        </Stack>
-      </Container>
+  useEffect(() => {
+    dispatch(fetchAllMovies());
+  }, [dispatch]);
+
+  return (
+    <Box height="100vh">
+      <Header />
+
+      <Carousel />
+
+      <Box py={3} component="div" id="movieList">
+        <Container fixed>
+          <MovieList />
+        </Container>
+      </Box>
+
+      <Contact />
+
+      <Footer />
     </Box>
   );
 };
