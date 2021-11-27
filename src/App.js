@@ -9,12 +9,14 @@ import { IgnoreAuth, RequireAuth } from "./HOCs/routes";
 
 // layouts
 import AuthLayout from "./HOCs/layouts/Auth";
+import HomeLayout from "./HOCs/layouts/Home";
 
 // views
 import SignIn from "./views/Auth/SignIn";
 import SignUp from "./views/Auth/SignUp";
 
 import Home from "./views/Home";
+import HomeMovieDetail from "./views/Home/MovieDetail";
 import Admin from "./views/Admin";
 
 const App = () => {
@@ -30,7 +32,11 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route element={<HomeLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/movies/:id" element={<HomeMovieDetail />} />
+        </Route>
+
         <Route element={<AuthLayout />}>
           <Route
             path="/signin"

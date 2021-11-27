@@ -13,3 +13,15 @@ export const fetchAllMovies = (params) => {
     }
   };
 };
+
+export const fetchMovieDetail = (id) => {
+  return async (dispatch) => {
+    try {
+      const res = await movieService.fetchMovieDetail(id);
+
+      dispatch(createAction(actionType.FETCH_MOVIE_SUCCESS, res.data.content));
+    } catch (err) {
+      console.log({ ...err });
+    }
+  };
+};

@@ -19,6 +19,10 @@ class MovieService {
       params: { maNhom: GROUP_ID, ...params },
     });
   }
+
+  fetchMovieDetail(id) {
+    return axiosClient.get(`/api/QuanLyPhim/LayThongTinPhim?MaPhim=${id}`);
+  }
 }
 
 export default MovieService;
