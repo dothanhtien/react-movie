@@ -8,9 +8,10 @@ import {
   Typography,
 } from "@mui/material";
 import useStyles from "./style";
+import { Link } from "react-router-dom";
 
 const MovieItem = (props) => {
-  const { hinhAnh, tenPhim, danhGia, moTa } = props.movie;
+  const { maPhim, hinhAnh, tenPhim, danhGia, moTa } = props.movie;
   const classes = useStyles();
 
   return (
@@ -42,7 +43,9 @@ const MovieItem = (props) => {
       </CardContent>
       <CardActions>
         <Button size="small">Booking</Button>
-        <Button size="small">Detail</Button>
+        <Button size="small" component={Link} to={`/movies/${maPhim}`}>
+          Detail
+        </Button>
       </CardActions>
     </Card>
   );

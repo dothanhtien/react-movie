@@ -6,6 +6,8 @@ export const actionType = {
 
   // movie
   FETCH_MOVIES_SUCCESS: "FETCH_MOVIES_SUCCESS",
+  FETCH_MOVIE_SUCCESS: "FETCH_MOVIE_SUCCESS",
+
   // booking
   // cinema
   // user
