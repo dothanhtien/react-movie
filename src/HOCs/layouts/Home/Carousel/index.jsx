@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Box } from "@mui/system";
-import { Button, Container, Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay, Pagination } from "swiper";
 import { useSpring, animated } from "react-spring";
 import { ReactComponent as ScrollArrowIcon } from "../../../../assets/img/scroll-arrow.svg";
+import GradientButton from "../../../../components/UI/Buttons/GradientButton";
+import VideoModal from "../../../../components/UI/Modals/VideoModal";
 import useStyles from "./style";
 
 // swiper bundle styles
@@ -14,13 +16,43 @@ import "swiper/swiper-bundle.min.css";
 // install Swiper modules
 SwiperCore.use([Autoplay, Pagination]);
 
+const banners = [
+  {
+    maBanner: 1,
+    maPhim: 1282,
+    hinhAnh: "https://movienew.cybersoft.edu.vn/hinhanh/ban-tay-diet-quy.png",
+    tenPhim: "Bàn tay diệt quỷ",
+    moTa: 'Sau khi bản thân bỗng nhiên sở hữu "Bàn tay diệt quỷ", võ sĩ MMA Yong Hoo (Park Seo Joon thủ vai) đã dấn thân vào hành trình trừ tà, trục quỷ đối đầu với Giám Mục Bóng Tối (Woo Dowan) – tên quỷ Satan đột lốt người. Từ đó sự thật về cái chết của cha Yong Hoo cũng dần được hé lộ cũng như nguyên nhân anh trở thành "người được chọn".',
+    trailer: "https://www.youtube.com/embed/9nyV-pgMX4I",
+  },
+  {
+    maBanner: 2,
+    maPhim: 1283,
+    hinhAnh: "https://movienew.cybersoft.edu.vn/hinhanh/lat-mat-48h.png",
+    tenPhim: "Lật mặt: 48h",
+    moTa: "Một gia đình bị truy đuổi giữa vùng sông nước. Cơ hội nào cho người đàn ông cứu lấy vợ con khỏi bọn xã hội đen máu mặt?",
+    trailer: "https://www.youtube.com/embed/UeyaR8jWl2c",
+  },
+  {
+    maBanner: 3,
+    maPhim: 1284,
+    hinhAnh: "https://movienew.cybersoft.edu.vn/hinhanh/cuoc-chien-sinh-tu.png",
+    tenPhim: "Mortal Kombat",
+    moTa: "Mortal Kombat: Cuộc chiến sinh tử là bộ phim điện ảnh thuộc thể loại hành động võ thuật xen lẫn giả tưởng sắp ra mắt của Mỹ. Phim do Simon McQuoid chịu trách nhiệm chỉ đạo, với phần kịch bản được chắp bút bởi Greg Russo và Dave Callaham, phát triển dựa trên cốt truyện của Oren Uziel và Russo.",
+    trailer: "https://www.youtube.com/embed/NYH2sLid0Zc",
+  },
+];
+
 const Carousel = () => {
   const classes = useStyles();
+  const [showVideoModal, setShowVideoModal] = useState(false);
+  const [selectedTrailer, setSelectedTrailer] = useState(null);
+
   const delay = 200;
   const duration = 500;
 
   const AnimatedTypography = animated(Typography);
-  const AnimatedButton = animated(Button);
+  const AnimatedGradientButton = animated(GradientButton);
   const AnimatedScrollArrowIcon = animated(ScrollArrowIcon);
 
   const [categoryStyles, categoryApi] = useSpring(() => ({
@@ -106,109 +138,101 @@ const Carousel = () => {
     });
   };
 
-  const banners = [
-    {
-      maBanner: 1,
-      maPhim: 1282,
-      hinhAnh: "https://movienew.cybersoft.edu.vn/hinhanh/ban-tay-diet-quy.png",
-      tenPhim: "Bàn tay diệt quỷ",
-      moTa: 'Sau khi bản thân bỗng nhiên sở hữu "Bàn tay diệt quỷ", võ sĩ MMA Yong Hoo (Park Seo Joon thủ vai) đã dấn thân vào hành trình trừ tà, trục quỷ đối đầu với Giám Mục Bóng Tối (Woo Dowan) – tên quỷ Satan đột lốt người. Từ đó sự thật về cái chết của cha Yong Hoo cũng dần được hé lộ cũng như nguyên nhân anh trở thành "người được chọn".',
-    },
-    {
-      maBanner: 2,
-      maPhim: 1283,
-      hinhAnh: "https://movienew.cybersoft.edu.vn/hinhanh/lat-mat-48h.png",
-      tenPhim: "Lật mặt: 48h",
-      moTa: "Một gia đình bị truy đuổi giữa vùng sông nước. Cơ hội nào cho người đàn ông cứu lấy vợ con khỏi bọn xã hội đen máu mặt?",
-    },
-    {
-      maBanner: 3,
-      maPhim: 1284,
-      hinhAnh:
-        "https://movienew.cybersoft.edu.vn/hinhanh/cuoc-chien-sinh-tu.png",
-      tenPhim: "Mortal Kombat",
-      moTa: "Mortal Kombat: Cuộc chiến sinh tử là bộ phim điện ảnh thuộc thể loại hành động võ thuật xen lẫn giả tưởng sắp ra mắt của Mỹ. Phim do Simon McQuoid chịu trách nhiệm chỉ đạo, với phần kịch bản được chắp bút bởi Greg Russo và Dave Callaham, phát triển dựa trên cốt truyện của Oren Uziel và Russo.",
-    },
-  ];
+  const handleShowVideoModal = (trailerSrc) => {
+    setSelectedTrailer(trailerSrc);
+    setShowVideoModal(true);
+  };
+
+  const handleCloseVideoModal = () => {
+    setSelectedTrailer(null);
+    setShowVideoModal(false);
+  };
 
   return (
-    <Box position="relative">
-      <Swiper
-        autoHeight={true}
-        loop={true}
-        autoplay={{ delay: 8000 }}
-        pagination={{
-          clickable: true,
-          type: "bullets",
-          bulletClass: classes.sliderPaginationBullet,
-          bulletActiveClass: "active",
-        }}
-        onSlideChange={handleSlideChange}
-      >
-        {banners.map((banner) => {
-          return (
-            <SwiperSlide key={banner.maPhim}>
-              <Box position="relative">
-                <Box className={classes.sliderOverlay}></Box>
-                <img
-                  src={banner.hinhAnh}
-                  alt="slide1"
-                  className={classes.sliderImage}
-                />
-                <Box className={classes.sliderContent}>
-                  <Container fixed>
-                    <Box width="70%">
-                      <AnimatedTypography
-                        variant="overline"
-                        className={classes.silderContentCategory}
-                        style={categoryStyles}
-                      >
-                        ACTION, ADVENTURE, FANTASY
-                      </AnimatedTypography>
-                      <AnimatedTypography
-                        variant="h3"
-                        className={classes.sliderContentTitle}
-                        style={titleStyles}
-                      >
-                        {banner.tenPhim}
-                      </AnimatedTypography>
-                      <AnimatedTypography
-                        variant="body"
-                        className={classes.sliderContentDescription}
-                        style={descriptionStyles}
-                      >
-                        {banner.moTa}
-                      </AnimatedTypography>
-                      <AnimatedButton
-                        variant="contained"
-                        startIcon={<PlayArrowIcon />}
-                        className={classes.sliderButton}
-                        style={buttonStyles}
-                      >
-                        <span className={classes.playTrailer}>
+    <>
+      <Box position="relative">
+        <Swiper
+          autoHeight={true}
+          loop={true}
+          autoplay={{ delay: 8000 }}
+          pagination={{
+            clickable: true,
+            type: "bullets",
+            bulletClass: classes.sliderPaginationBullet,
+            bulletActiveClass: "active",
+          }}
+          onSlideChange={handleSlideChange}
+        >
+          {banners.map((banner) => {
+            return (
+              <SwiperSlide key={banner.maPhim}>
+                <Box position="relative">
+                  <Box className={classes.sliderOverlay}></Box>
+                  <img
+                    src={banner.hinhAnh}
+                    alt="slide1"
+                    className={classes.sliderImage}
+                  />
+                  <Box className={classes.sliderContent}>
+                    <Container fixed>
+                      <Box width="70%">
+                        <AnimatedTypography
+                          variant="overline"
+                          className={classes.silderContentCategory}
+                          style={categoryStyles}
+                        >
+                          ACTION, ADVENTURE, FANTASY
+                        </AnimatedTypography>
+                        <AnimatedTypography
+                          variant="h3"
+                          className={classes.sliderContentTitle}
+                          style={titleStyles}
+                        >
+                          {banner.tenPhim}
+                        </AnimatedTypography>
+                        <AnimatedTypography
+                          variant="body"
+                          className={classes.sliderContentDescription}
+                          style={descriptionStyles}
+                        >
+                          {banner.moTa}
+                        </AnimatedTypography>
+                        <AnimatedGradientButton
+                          startIcon={<PlayArrowIcon />}
+                          style={buttonStyles}
+                          onClick={() => handleShowVideoModal(banner.trailer)}
+                        >
                           Play trailer
-                        </span>
-                      </AnimatedButton>
-                    </Box>
-                  </Container>
+                        </AnimatedGradientButton>
+                      </Box>
+                    </Container>
+                  </Box>
                 </Box>
-              </Box>
-            </SwiperSlide>
-          );
-        })}
-      </Swiper>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
 
-      <Box
-        className={classes.scrollArrowContainer}
-        component="a"
-        href="#movieList"
-      >
-        <AnimatedScrollArrowIcon
-          className={classes.scrollArrowIcon}
-          style={scrollArrowIconStyles}
-        />
+        <Box
+          className={classes.scrollArrowContainer}
+          component="a"
+          href="#movieList"
+        >
+          <AnimatedScrollArrowIcon
+            className={classes.scrollArrowIcon}
+            style={scrollArrowIconStyles}
+          />
+        </Box>
       </Box>
-    </Box>
+
+      {selectedTrailer && (
+        <VideoModal
+          src={selectedTrailer}
+          open={showVideoModal}
+          handleClose={handleCloseVideoModal}
+        />
+      )}
+    </>
   );
 };
 
