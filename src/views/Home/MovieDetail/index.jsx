@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Box } from "@mui/system";
 import {
   Avatar,
@@ -11,14 +11,20 @@ import {
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { createLoadingSelector } from "../../../store/selector";
 import { fetchMovieDetail } from "../../../store/actions/movie";
 import Contact from "../../../HOCs/layouts/Home/Contact";
 import GradientButton from "../../../components/UI/Buttons/GradientButton";
+import LoadingScreen from "../../../components/LoadingScreenStyle1";
+import VideoModal from "../../../components/UI/Modals/VideoModal";
 
 const MovieDetail = () => {
   const params = useParams();
   const dispatch = useDispatch();
+  const loadingSelector = createLoadingSelector(["FETCH_MOVIE"]);
+  const isFetching = useSelector((state) => loadingSelector(state));
   const movieDetail = useSelector((state) => state.movie.movieDetail);
+  const [showTrailer, setShowTrailer] = useState(false);
 
   useEffect(() => {
     dispatch(fetchMovieDetail(params.id));
@@ -26,6 +32,8 @@ const MovieDetail = () => {
 
   return (
     <>
+      {isFetching && <LoadingScreen />}
+
       <Container
         fixed
         sx={{
@@ -42,7 +50,11 @@ const MovieDetail = () => {
                 alt={movieDetail.biDanh}
                 style={{ display: "block", width: "100%", marginBottom: 16 }}
               />
-              <Box width="100%" textAlign="center">
+              <Box
+                width="100%"
+                textAlign="center"
+                onClick={() => setShowTrailer(true)}
+              >
                 <GradientButton startIcon={<PlayArrowIcon />}>
                   Play trailer
                 </GradientButton>
@@ -93,6 +105,14 @@ const MovieDetail = () => {
       </Container>
 
       <Contact />
+
+      {movieDetail && (
+        <VideoModal
+          src={movieDetail.trailer}
+          open={showTrailer}
+          handleClose={() => setShowTrailer(false)}
+        />
+      )}
     </>
   );
 };

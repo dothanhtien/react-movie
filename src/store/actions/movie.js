@@ -4,6 +4,7 @@ import { actionType } from "./type";
 
 export const fetchAllMovies = (params) => {
   return async (dispatch) => {
+    dispatch(createAction(actionType.FETCH_MOVIES_REQUEST));
     try {
       const res = await movieService.fetchAllMovies(params);
 
@@ -16,6 +17,7 @@ export const fetchAllMovies = (params) => {
 
 export const fetchMovieDetail = (id) => {
   return async (dispatch) => {
+    dispatch(createAction(actionType.FETCH_MOVIE_REQUEST));
     try {
       const res = await movieService.fetchMovieDetail(id);
 

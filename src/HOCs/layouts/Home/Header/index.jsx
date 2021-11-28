@@ -1,36 +1,21 @@
 import React from "react";
-import {
-  AppBar,
-  Button,
-  Container,
-  IconButton,
-  Toolbar,
-  Typography,
-} from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import { AppBar, Button, Container, Toolbar } from "@mui/material";
 import { Link } from "react-router-dom";
-import { Box } from "@mui/system";
 
 const Header = () => {
   return (
     <>
       <AppBar position="fixed" sx={{ bgcolor: "#121212", color: "#0eae57" }}>
         <Container fixed>
-          <Toolbar sx={{ paddingLeft: 0, paddingRight: 0 }}>
-            <Box sx={{ display: { md: "none", xs: "block" } }}>
-              <IconButton
-                size="large"
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                sx={{ mr: 2 }}
-              >
-                <MenuIcon />
-              </IconButton>
-            </Box>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Toolbar
+            disableGutters={true}
+            sx={{
+              justifyContent: "space-between",
+            }}
+          >
+            <Button color="inherit" component={Link} to="/">
               {process.env.REACT_APP_NAME}
-            </Typography>
+            </Button>
             <Button color="inherit" component={Link} to="/signin">
               Sign in
             </Button>
