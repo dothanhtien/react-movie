@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ACCESS_TOKEN } from "./constants/appConfig";
 import { fetchMe } from "./store/actions/auth";
+import LoadingScreen from "./components/LoadingScreen";
 
 // routes
 import { IgnoreAuth, RequireAuth } from "./HOCs/routes";
@@ -12,12 +13,13 @@ import AuthLayout from "./HOCs/layouts/Auth";
 import HomeLayout from "./HOCs/layouts/Home";
 
 // views
-import SignIn from "./views/Auth/SignIn";
-import SignUp from "./views/Auth/SignUp";
+const SignIn = React.lazy(() => import("./views/Auth/SignIn"));
+const SignUp = React.lazy(() => import("./views/Auth/SignUp"));
 
-import Home from "./views/Home";
-import HomeMovieDetail from "./views/Home/MovieDetail";
-import Admin from "./views/Admin";
+const Home = React.lazy(() => import("./views/Home"));
+const HomeMovieDetail = React.lazy(() => import("./views/Home/MovieDetail"));
+
+const Admin = React.lazy(() => import("./views/Admin"));
 
 const App = () => {
   const dispatch = useDispatch();
@@ -31,40 +33,42 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route element={<HomeLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/movies/:id" element={<HomeMovieDetail />} />
-        </Route>
+      <Suspense fallback={<LoadingScreen />}>
+        <Routes>
+          <Route element={<HomeLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/movies/:id" element={<HomeMovieDetail />} />
+          </Route>
 
-        <Route element={<AuthLayout />}>
+          <Route element={<AuthLayout />}>
+            <Route
+              path="/signin"
+              element={
+                <IgnoreAuth redirectPath="/admin">
+                  <SignIn />
+                </IgnoreAuth>
+              }
+            />
+            <Route
+              path="/signup"
+              element={
+                <IgnoreAuth redirectPath="/admin">
+                  <SignUp />
+                </IgnoreAuth>
+              }
+            />
+          </Route>
+
           <Route
-            path="/signin"
+            path="/admin"
             element={
-              <IgnoreAuth redirectPath="/admin">
-                <SignIn />
-              </IgnoreAuth>
+              <RequireAuth redirectPath="/signin">
+                <Admin />
+              </RequireAuth>
             }
           />
-          <Route
-            path="/signup"
-            element={
-              <IgnoreAuth redirectPath="/admin">
-                <SignUp />
-              </IgnoreAuth>
-            }
-          />
-        </Route>
-
-        <Route
-          path="/admin"
-          element={
-            <RequireAuth redirectPath="/signin">
-              <Admin />
-            </RequireAuth>
-          }
-        />
-      </Routes>
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 };

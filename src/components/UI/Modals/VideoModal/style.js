@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
     top: 0,
     right: 0,
     transform: "translate(50%,-50%)",
+    zIndex: 1,
   },
 }));
 
