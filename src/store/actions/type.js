@@ -12,5 +12,8 @@ export const actionType = {
 
   // booking
   // cinema
+  FETCH_CINEMA_COMPLEX_SHOWTIMES_SUCCESS:
+    "FETCH_CINEMA_COMPLEX_SHOWTIMES_SUCCESS",
+
   // user
 };

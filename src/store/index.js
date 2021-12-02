@@ -5,9 +5,10 @@ import thunkMiddleware from "redux-thunk";
 import auth from "./reducers/auth";
 import me from "./reducers/me";
 import movie from "./reducers/movie";
+import cinema from "./reducers/cinema";
 import loading from "./reducers/loading";
 
-const reducer = combineReducers({ auth, me, movie, loading });
+const reducer = combineReducers({ auth, me, movie, cinema, loading });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
