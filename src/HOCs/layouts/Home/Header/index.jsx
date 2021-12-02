@@ -16,6 +16,9 @@ const Header = () => {
             <Button color="inherit" component={Link} to="/">
               {process.env.REACT_APP_NAME}
             </Button>
+            <Button color="inherit" component="a" href="#cinemaList">
+              Cinema complex
+            </Button>
             <Button color="inherit" component={Link} to="/signin">
               Sign in
             </Button>
