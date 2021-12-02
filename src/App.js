@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ACCESS_TOKEN } from "./constants/appConfig";
 import { fetchMe } from "./store/actions/auth";
+import ScrollToTop from "./components/ScrollToTop";
 import LoadingScreen from "./components/LoadingScreen";
 
 // routes
@@ -33,6 +34,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Suspense fallback={<LoadingScreen />}>
         <Routes>
           <Route element={<HomeLayout />}>
