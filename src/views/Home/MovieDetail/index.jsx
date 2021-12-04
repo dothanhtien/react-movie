@@ -15,7 +15,7 @@ import { createLoadingSelector } from "../../../store/selector";
 import { fetchMovieDetail } from "../../../store/actions/movie";
 import Contact from "../../../HOCs/layouts/Home/Contact";
 import GradientButton from "../../../components/UI/Buttons/GradientButton";
-import LoadingScreen from "../../../components/LoadingScreenStyle1";
+import LoadingScreen from "../../../components/LoadingScreen";
 import VideoModal from "../../../components/UI/Modals/VideoModal";
 
 const MovieDetail = () => {

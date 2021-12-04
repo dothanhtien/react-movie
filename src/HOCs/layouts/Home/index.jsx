@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { Box } from "@mui/system";
-import Header from "./Header";
+import Header from "../shared/Header";
 import Footer from "./Footer";
 
 const HomeLayout = () => {

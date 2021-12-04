@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ACCESS_TOKEN } from "./constants/appConfig";
 import { fetchMe } from "./store/actions/auth";
 import ScrollToTop from "./components/ScrollToTop";
-import LoadingScreen from "./components/LoadingScreen";
+import LazyLoadingScreen from "./components/LazyLoadingScreen";
 
 // routes
 import { IgnoreAuth, RequireAuth } from "./HOCs/routes";
@@ -35,7 +35,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <Suspense fallback={<LoadingScreen />}>
+      <Suspense fallback={<LazyLoadingScreen />}>
         <Routes>
           <Route element={<HomeLayout />}>
             <Route path="/" element={<Home />} />

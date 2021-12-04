@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
   cinemaList: {
     width: "40%",
     borderRight: "1px solid rgba(0, 0, 0, 0.12)",
-    boxSizing: "border-box",
   },
   cinemaItem: {
     width: "100%",

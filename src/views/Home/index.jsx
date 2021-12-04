@@ -7,7 +7,7 @@ import { fetchAllMovies } from "../../store/actions/movie";
 import Carousel from "../../HOCs/layouts/Home/Carousel";
 import MovieList from "../../components/Home/MovieList";
 import Contact from "../../HOCs/layouts/Home/Contact";
-import LoadingScreen from "../../components/LoadingScreenStyle1";
+import LoadingScreen from "../../components/LoadingScreen";
 import CinemaComplex from "../../HOCs/layouts/Home/CinemaComplex";
 
 const Home = () => {
