@@ -1,53 +1,62 @@
-import React from "react";
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Typography,
-} from "@mui/material";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Box, IconButton, Rating, Typography } from "@mui/material";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import VideoModal from "../../UI/Modals/VideoModal";
 import useStyles from "./style";
-import { Link } from "react-router-dom";
 
 const MovieItem = (props) => {
-  const { maPhim, hinhAnh, tenPhim, danhGia, moTa } = props.movie;
+  const { maPhim, hinhAnh, tenPhim, danhGia, trailer } = props.movie;
   const classes = useStyles();
+  const navigate = useNavigate();
+  const [showTrailer, setShowTrailer] = useState(false);
 
   return (
-    <Card>
-      <CardMedia
-        component="img"
-        height="320"
-        image={hinhAnh}
-        alt="green iguana"
-      />
-      <CardContent>
-        <Typography
-          gutterBottom
-          variant="h6"
-          component="h3"
-          className={classes.title}
+    <>
+      <Box position="relative">
+        <Box
+          className={classes.movieImageContainer}
+          onClick={() => navigate(`/movies/${maPhim}`)}
         >
-          {tenPhim.length > 40 ? tenPhim.substr(0, 36) + " ..." : tenPhim}
-        </Typography>
-        <Typography variant="overline">Rating: {danhGia}/10</Typography>
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          component="p"
-          className={classes.description}
-        >
-          {moTa.length > 89 ? moTa.substr(0, 85) + " ..." : moTa}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Booking</Button>
-        <Button size="small" component={Link} to={`/movies/${maPhim}`}>
-          Detail
-        </Button>
-      </CardActions>
-    </Card>
+          <img
+            src={hinhAnh}
+            alt={tenPhim}
+            style={{ display: "block", width: "100%", height: 320 }}
+          />
+          <Box className={`movie-overlay ${classes.movieOverlay}`}>
+            <IconButton
+              size="large"
+              className={classes.playButton}
+              onClick={(e) => {
+                setShowTrailer(true);
+                e.stopPropagation();
+              }}
+            >
+              <PlayArrowIcon />
+            </IconButton>
+          </Box>
+        </Box>
+        <Box textAlign="center" mt={2}>
+          <Rating
+            defaultValue={danhGia}
+            precision={0.5}
+            readOnly
+            size="small"
+          />
+          <Typography variant="h6" component="h3" minHeight={64}>
+            {tenPhim.length > 40 ? tenPhim.substr(0, 36) + " ..." : tenPhim}
+          </Typography>
+        </Box>
+      </Box>
+
+      {showTrailer && (
+        <VideoModal
+          src={trailer}
+          open={showTrailer}
+          handleClose={() => setShowTrailer(false)}
+        />
+      )}
+    </>
   );
 };
 

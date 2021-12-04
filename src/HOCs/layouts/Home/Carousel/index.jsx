@@ -225,7 +225,7 @@ const Carousel = () => {
         </Box>
       </Box>
 
-      {selectedTrailer && (
+      {showVideoModal && (
         <VideoModal
           src={selectedTrailer}
           open={showVideoModal}

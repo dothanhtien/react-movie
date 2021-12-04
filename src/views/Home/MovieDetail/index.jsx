@@ -106,7 +106,7 @@ const MovieDetail = () => {
 
       <Contact />
 
-      {movieDetail && (
+      {showTrailer && (
         <VideoModal
           src={movieDetail.trailer}
           open={showTrailer}
