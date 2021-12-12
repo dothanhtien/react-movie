@@ -39,8 +39,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   showtimeItem: {
-    marginRight: 1,
-    marginBottom: 1,
+    marginRight: 8,
+    marginBottom: 8,
   },
 }));
 

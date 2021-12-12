@@ -6,10 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCinemaComplexShowtimes } from "../../../../store/actions/cinema";
 import TabPanel from "../../../../components/UI/TabPanel";
 import useStyles from "./style";
+import { useNavigate } from "react-router-dom";
 
 const CinemaMovies = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [selectedCinemaComplex, setSelectedCinemaComplex] = React.useState(0);
   const [selectedCinema, setSelectedCinema] = React.useState(0);
   const cinemaComplexShowtimes = useSelector(
@@ -50,6 +52,7 @@ const CinemaMovies = () => {
                 variant="outlined"
                 size="small"
                 className={classes.showtimeItem}
+                onClick={() => navigate(`/booking/${showtime.maLichChieu}`)}
               />
             );
           })}
@@ -72,6 +75,7 @@ const CinemaMovies = () => {
             variant="outlined"
             size="small"
             className={classes.showtimeItem}
+            onClick={() => navigate(`/booking/${showtime.maLichChieu}`)}
           />
         );
       });

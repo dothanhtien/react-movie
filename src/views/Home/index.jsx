@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useLayoutEffect } from "react";
 import { Box } from "@mui/system";
 import { Container } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,7 +15,8 @@ const Home = () => {
   const loadingSelector = createLoadingSelector(["FETCH_MOVIES"]);
   const isFetching = useSelector((state) => loadingSelector(state));
 
-  useEffect(() => {
+  // dùng useLayoutEffect để call redux async action trước khi render ra UI (mới học đc trên F8 ^^ )
+  useLayoutEffect(() => {
     dispatch(fetchAllMovies());
   }, [dispatch]);
 
