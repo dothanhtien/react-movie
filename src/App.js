@@ -19,6 +19,7 @@ const SignUp = React.lazy(() => import("./views/Auth/SignUp"));
 
 const Home = React.lazy(() => import("./views/Home"));
 const HomeMovieDetail = React.lazy(() => import("./views/Home/MovieDetail"));
+const Booking = React.lazy(() => import("./views/Home/Booking"));
 
 const Admin = React.lazy(() => import("./views/Admin"));
 
@@ -40,6 +41,7 @@ const App = () => {
           <Route element={<HomeLayout />}>
             <Route path="/" element={<Home />} />
             <Route path="/movies/:id" element={<HomeMovieDetail />} />
+            <Route path="/booking/:showtimeId" element={<Booking />} />
           </Route>
 
           <Route element={<AuthLayout />}>
