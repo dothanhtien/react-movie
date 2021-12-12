@@ -2,7 +2,7 @@ import React from "react";
 import { Box } from "@mui/system";
 import { LoadingButton } from "@mui/lab";
 import { Alert, Button, TextField, Typography } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../../../store/actions/auth";
@@ -10,6 +10,7 @@ import { signIn } from "../../../store/actions/auth";
 const SignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const authError = useSelector((state) => state.auth.error);
 
   const {
@@ -30,7 +31,12 @@ const SignIn = () => {
     dispatch(
       signIn(data, () => {
         reset();
-        navigate("/admin");
+
+        if (location.state && location.state.from.pathname !== "/admin") {
+          navigate(location.state.from.pathname);
+        } else {
+          navigate("/admin");
+        }
       })
     );
   };

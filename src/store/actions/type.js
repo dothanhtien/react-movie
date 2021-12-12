@@ -2,6 +2,7 @@ export const actionType = {
   // auth
   SIGNIN_SUCCESS: "SIGNIN_SUCCESS",
   SIGNUP_SUCCESS: "SIGNUP_SUCCESS",
+  SIGNOUT_SUCCESS: "SIGNOUT_SUCCESS",
   SET_AUTH_ERROR: "SET_AUTH_ERROR",
 
   // movie

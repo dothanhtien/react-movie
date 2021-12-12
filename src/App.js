@@ -41,7 +41,14 @@ const App = () => {
           <Route element={<HomeLayout />}>
             <Route path="/" element={<Home />} />
             <Route path="/movies/:id" element={<HomeMovieDetail />} />
-            <Route path="/booking/:showtimeId" element={<Booking />} />
+            <Route
+              path="/booking/:showtimeId"
+              element={
+                <RequireAuth redirectPath="/signin">
+                  <Booking />
+                </RequireAuth>
+              }
+            />
           </Route>
 
           <Route element={<AuthLayout />}>
