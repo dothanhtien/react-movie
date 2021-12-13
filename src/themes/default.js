@@ -1,5 +1,9 @@
 import { createTheme } from "@mui/material";
 
-const defaultTheme = createTheme();
+const defaultTheme = createTheme({
+  mixins: {
+    drawerWidth: 240,
+  },
+});
 
 export default defaultTheme;

@@ -12,6 +12,7 @@ import { IgnoreAuth, RequireAuth } from "./HOCs/routes";
 // layouts
 import AuthLayout from "./HOCs/layouts/Auth";
 import HomeLayout from "./HOCs/layouts/Home";
+import AdminLayout from "./HOCs/layouts/Admin";
 
 // views
 const SignIn = React.lazy(() => import("./views/Auth/SignIn"));
@@ -21,7 +22,9 @@ const Home = React.lazy(() => import("./views/Home"));
 const HomeMovieDetail = React.lazy(() => import("./views/Home/MovieDetail"));
 const Booking = React.lazy(() => import("./views/Home/Booking"));
 
-const Admin = React.lazy(() => import("./views/Admin"));
+const Dashboard = React.lazy(() => import("./views/Admin/Dashboard"));
+const ManageMovies = React.lazy(() => import("./views/Admin/Movies/Manage"));
+const NewMovie = React.lazy(() => import("./views/Admin/Movies/New"));
 
 const App = () => {
   const dispatch = useDispatch();
@@ -70,14 +73,34 @@ const App = () => {
             />
           </Route>
 
-          <Route
-            path="/admin"
-            element={
-              <RequireAuth redirectPath="/signin">
-                <Admin />
-              </RequireAuth>
-            }
-          />
+          <Route element={<AdminLayout />}>
+            <Route
+              path="/admin"
+              element={
+                <RequireAuth redirectPath="/signin">
+                  <Dashboard />
+                </RequireAuth>
+              }
+            />
+
+            <Route
+              path="/admin/movies"
+              element={
+                <RequireAuth redirectPath="/signin">
+                  <ManageMovies />
+                </RequireAuth>
+              }
+            />
+
+            <Route
+              path="/admin/movies/new"
+              element={
+                <RequireAuth redirectPath="/signin">
+                  <NewMovie />
+                </RequireAuth>
+              }
+            />
+          </Route>
         </Routes>
       </Suspense>
     </BrowserRouter>

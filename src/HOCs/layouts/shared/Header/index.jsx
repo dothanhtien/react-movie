@@ -90,6 +90,9 @@ const Header = () => {
                   open={Boolean(anchorEl)}
                   onClose={() => setAnchorEl(null)}
                 >
+                  <MenuItem onClick={() => navigate("/admin")}>
+                    Admin page
+                  </MenuItem>
                   <MenuItem onClick={() => setAnchorEl(null)}>
                     My profile
                   </MenuItem>
