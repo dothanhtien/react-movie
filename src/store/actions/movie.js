@@ -19,6 +19,24 @@ export const fetchAllMovies = (params) => {
   };
 };
 
+export const fetchMoviesWithPagination = (params) => {
+  return async (dispatch) => {
+    dispatch(createAction(actionType.FETCH_MOVIES_WITH_PAGINATION_REQUEST));
+    try {
+      const res = await movieService.fetchMoviesWithPagination(params);
+
+      dispatch(
+        createAction(
+          actionType.FETCH_MOVIES_WITH_PAGINATION_SUCCESS,
+          res.data.content
+        )
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
 export const fetchMovieDetail = (id) => {
   return async (dispatch) => {
     dispatch(createAction(actionType.FETCH_MOVIE_REQUEST));

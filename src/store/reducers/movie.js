@@ -3,6 +3,7 @@ import { actionType } from "../actions/type";
 const initialState = {
   movieList: [],
   movieDetail: null,
+  pagination: null,
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -12,6 +13,11 @@ const reducer = (state = initialState, { type, payload }) => {
       return { ...state };
     case actionType.FETCH_MOVIE_SUCCESS:
       state.movieDetail = payload;
+      return { ...state };
+    case actionType.FETCH_MOVIES_WITH_PAGINATION_SUCCESS:
+      const { count, currentPage, totalCount, totalPages, items } = payload;
+      state.movieList = items;
+      state.pagination = { count, currentPage, totalCount, totalPages };
       return { ...state };
     default:
       return state;
