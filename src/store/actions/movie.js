@@ -12,7 +12,7 @@ export const fetchAllMovies = (params) => {
         dispatch(
           createAction(actionType.FETCH_MOVIES_SUCCESS, res.data.content)
         );
-      }, 500);
+      }, 400);
     } catch (err) {
       console.log(err);
     }
@@ -25,12 +25,14 @@ export const fetchMoviesWithPagination = (params) => {
     try {
       const res = await movieService.fetchMoviesWithPagination(params);
 
-      dispatch(
-        createAction(
-          actionType.FETCH_MOVIES_WITH_PAGINATION_SUCCESS,
-          res.data.content
-        )
-      );
+      setTimeout(() => {
+        dispatch(
+          createAction(
+            actionType.FETCH_MOVIES_WITH_PAGINATION_SUCCESS,
+            res.data.content
+          )
+        );
+      }, 400);
     } catch (err) {
       console.log(err);
     }
@@ -50,6 +52,38 @@ export const fetchMovieDetail = (id) => {
       }, 500);
     } catch (err) {
       console.log({ ...err });
+    }
+  };
+};
+
+export const createMovie = (data, callback) => {
+  return async (dispatch) => {
+    dispatch(createAction(actionType.CREATE_MOVIE_REQUEST));
+    try {
+      const res = await movieService.createMovie(data);
+
+      if (res.status === 200) {
+        dispatch(createAction(actionType.CREATE_MOVIE_SUCCESS));
+        if (callback) callback();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const deleteMovie = (id, callback) => {
+  return async (dispatch) => {
+    dispatch(createAction(actionType.DELETE_MOVIE_REQUEST));
+    try {
+      const res = await movieService.deleteMovie(id);
+
+      if (res.status === 200) {
+        dispatch(createAction(actionType.DELETE_MOVIE_SUCCESS));
+        if (callback) callback();
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 };

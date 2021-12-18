@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Button,
   Dialog,
@@ -6,11 +7,10 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
-import React from "react";
 
-const DeleteMovieModal = ({ open, handleClose, movie }) => {
+const DeleteMovieModal = ({ open, movie, isDeleting, onClose, onDelete }) => {
   return (
-    <Dialog fullWidth maxWidth="xs" open={open} onClose={handleClose}>
+    <Dialog fullWidth maxWidth="xs" open={open} onClose={onClose}>
       <DialogTitle>Are you sure to delete this movie?</DialogTitle>
       <DialogContent>
         <DialogContentText>
@@ -19,13 +19,19 @@ const DeleteMovieModal = ({ open, handleClose, movie }) => {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button variant="contained" color="error" onClick={handleClose}>
+        <Button
+          variant="contained"
+          color="error"
+          onClick={onDelete}
+          disabled={isDeleting}
+        >
           Delete
         </Button>
         <Button
           variant="contained"
           color="inherit"
-          onClick={handleClose}
+          onClick={onClose}
+          disabled={isDeleting}
           autoFocus
         >
           Cancel

@@ -16,17 +16,25 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMoviesWithPagination } from "../../../../store/actions/movie";
+import {
+  deleteMovie,
+  fetchMoviesWithPagination,
+} from "../../../../store/actions/movie";
 import { createLoadingSelector } from "../../../../store/selector";
 import DeleteMovieModal from "../../../../components/Admin/Movies/DeleteMovieModal";
 
 const MovieManagement = () => {
   const dispatch = useDispatch();
-  const loadingSelector = createLoadingSelector([
-    ["FETCH_MOVIES_WITH_PAGINATION"],
+  const fetchingMoviesSelector = createLoadingSelector([
+    "FETCH_MOVIES_WITH_PAGINATION",
   ]);
-  const isFetching = useSelector((state) => loadingSelector(state));
+  const deletingMovieSelector = createLoadingSelector(["DELETE_MOVIE"]);
+  const isFetchingMovies = useSelector((state) =>
+    fetchingMoviesSelector(state)
+  );
+  const isDeletingMovie = useSelector((state) => deletingMovieSelector(state));
   const movieList = useSelector((state) => state.movie.movieList);
   const pagination = useSelector((state) => state.movie.pagination);
   const [showDeleteMovieModal, setShowDeleteMovieModal] = useState(false);
@@ -45,6 +53,26 @@ const MovieManagement = () => {
     setShowDeleteMovieModal(true);
   };
 
+  const handleDeleteMovie = () => {
+    dispatch(
+      deleteMovie(selectedMovie.maPhim, () => {
+        // hide Confirm delete movie modal
+        setShowDeleteMovieModal(false);
+
+        // show success modal
+        Swal.fire({
+          icon: "success",
+          title: "Movie deleted successfully",
+          // timer: 5000,
+          showConfirmButton: false,
+        });
+
+        // fetch movie list => NEED TO BE IMPLEMENTED
+        dispatch(fetchMoviesWithPagination());
+      })
+    );
+  };
+
   return (
     <>
       <Typography variant="h3" component="h1" mb={4}>
@@ -61,7 +89,7 @@ const MovieManagement = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {isFetching && (
+            {isFetchingMovies && (
               <TableRow>
                 <TableCell colSpan={4} align="center">
                   <CircularProgress />
@@ -69,7 +97,7 @@ const MovieManagement = () => {
               </TableRow>
             )}
 
-            {!isFetching &&
+            {!isFetchingMovies &&
               movieList &&
               movieList.map((movie) => {
                 return (
@@ -127,9 +155,11 @@ const MovieManagement = () => {
 
       {showDeleteMovieModal && (
         <DeleteMovieModal
-          open={showDeleteMovieModal}
-          handleClose={() => setShowDeleteMovieModal(false)}
           movie={selectedMovie}
+          open={showDeleteMovieModal}
+          onClose={() => setShowDeleteMovieModal(false)}
+          isDeleting={isDeletingMovie}
+          onDelete={handleDeleteMovie}
         />
       )}
     </>
