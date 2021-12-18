@@ -6,7 +6,10 @@ import {
   Menu,
   MenuItem,
   Toolbar,
+  Typography,
 } from "@mui/material";
+import { Box } from "@mui/system";
+import MenuIcon from "@mui/icons-material/Menu";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AccountCircle } from "@mui/icons-material";
@@ -14,7 +17,7 @@ import { ACCESS_TOKEN } from "../../../../constants/appConfig";
 import { createAction } from "../../../../store/actions";
 import { actionType } from "../../../../store/actions/type";
 
-const AdminHeader = () => {
+const AdminHeader = ({ onDrawerToggle }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const me = useSelector((state) => state.me);
@@ -32,12 +35,24 @@ const AdminHeader = () => {
       sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
     >
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Button color="inherit" component={Link} to="/">
-          {process.env.REACT_APP_NAME}
-        </Button>
+        <Box>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            // edge="start"
+            onClick={onDrawerToggle}
+            sx={{ display: { sm: "none" } }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Button color="inherit" component={Link} to="/">
+            {process.env.REACT_APP_NAME}
+          </Button>
+        </Box>
 
         {me && (
-          <>
+          <Box display="flex" alignItems="center">
+            <Typography>Hi {me.hoTen ? me.hoTen : "guy"}</Typography>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -45,6 +60,7 @@ const AdminHeader = () => {
               aria-haspopup="true"
               onClick={(e) => setAnchorEl(e.currentTarget)}
               color="inherit"
+              // edge="end"
             >
               <AccountCircle />
             </IconButton>
@@ -66,7 +82,7 @@ const AdminHeader = () => {
               <MenuItem onClick={() => setAnchorEl(null)}>My profile</MenuItem>
               <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
             </Menu>
-          </>
+          </Box>
         )}
       </Toolbar>
     </AppBar>

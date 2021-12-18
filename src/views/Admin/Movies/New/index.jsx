@@ -214,7 +214,7 @@ const NewMovie = () => {
               variant="outlined"
               fullWidth
               multiline
-              rows={4}
+              minRows={4}
               margin="normal"
             />
           )}
