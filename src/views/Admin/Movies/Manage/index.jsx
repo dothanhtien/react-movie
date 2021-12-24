@@ -17,6 +17,7 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteMovie,
@@ -27,6 +28,7 @@ import DeleteMovieModal from "../../../../components/Admin/Movies/DeleteMovieMod
 
 const MovieManagement = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const fetchingMoviesSelector = createLoadingSelector([
     "FETCH_MOVIES_WITH_PAGINATION",
   ]);
@@ -118,6 +120,9 @@ const MovieManagement = () => {
                           size="small"
                           color="primary"
                           sx={{ marginRight: 1 }}
+                          onClick={() =>
+                            navigate(`/admin/movies/${movie.maPhim}/edit`)
+                          }
                         >
                           <EditIcon />
                         </IconButton>

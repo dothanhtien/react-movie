@@ -25,6 +25,7 @@ const Booking = React.lazy(() => import("./views/Home/Booking"));
 const Dashboard = React.lazy(() => import("./views/Admin/Dashboard"));
 const ManageMovies = React.lazy(() => import("./views/Admin/Movies/Manage"));
 const NewMovie = React.lazy(() => import("./views/Admin/Movies/New"));
+const EditMovie = React.lazy(() => import("./views/Admin/Movies/Edit"));
 
 const App = () => {
   const dispatch = useDispatch();
@@ -97,6 +98,15 @@ const App = () => {
               element={
                 <RequireAuth redirectPath="/signin">
                   <NewMovie />
+                </RequireAuth>
+              }
+            />
+
+            <Route
+              path="/admin/movies/:id/edit"
+              element={
+                <RequireAuth redirectPath="/signin">
+                  <EditMovie />
                 </RequireAuth>
               }
             />
