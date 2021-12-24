@@ -38,6 +38,7 @@ const NewMovie = () => {
   const creatingMovieSelector = createLoadingSelector(["CREATE_MOVIE"]);
   const isCreatingMovie = useSelector((state) => creatingMovieSelector(state));
   const movieImageRef = useRef(null);
+  const movieImageElemRef = useRef(null);
   const [movieImage, setMovieImage] = useState(null);
 
   const {
@@ -158,6 +159,7 @@ const NewMovie = () => {
   const handleResetForm = () => {
     reset();
     setMovieImage(null);
+    movieImageElemRef.current.value = "";
   };
 
   return (
@@ -339,6 +341,7 @@ const NewMovie = () => {
           >
             <label htmlFor="movie-image">
               <Input
+                inputRef={movieImageElemRef}
                 accept="image/*"
                 id="movie-image"
                 type="file"
