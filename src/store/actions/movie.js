@@ -72,6 +72,22 @@ export const createMovie = (data, callback) => {
   };
 };
 
+export const updateMovie = (data, callback) => {
+  return async (dispatch) => {
+    dispatch(createAction(actionType.UPDATE_MOVIE_REQUEST));
+    try {
+      const res = await movieService.updateMovie(data);
+
+      if (res.status === 200) {
+        dispatch(createAction(actionType.UPDATE_MOVIE_SUCCESS));
+        if (callback) callback();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
 export const deleteMovie = (id, callback) => {
   return async (dispatch) => {
     dispatch(createAction(actionType.DELETE_MOVIE_REQUEST));

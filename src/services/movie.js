@@ -40,6 +40,10 @@ class MovieService {
     return axiosClient.post("/api/QuanLyPhim/ThemPhimUploadHinh", data);
   }
 
+  updateMovie(data) {
+    return axiosClient.post("api/QuanLyPhim/CapNhatPhimUpload", data);
+  }
+
   deleteMovie(id) {
     return axiosClient.delete("/api/QuanLyPhim/XoaPhim", {
       params: { MaPhim: id },
