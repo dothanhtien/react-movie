@@ -1,70 +1,40 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import { Box } from "@mui/system";
-import {
-  Collapse,
-  Drawer,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Toolbar,
-} from "@mui/material";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
+import { Drawer, List, Toolbar } from "@mui/material";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import MovieIcon from "@mui/icons-material/Movie";
 import BallotOutlinedIcon from "@mui/icons-material/BallotOutlined";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
+import SingleSidebarItem from "./SingleSidebarItem";
+import ComplexSidebarItem from "./ComplexSidebarItem";
 
 const AdminSidebar = ({ open, onDrawerToggle, window }) => {
-  const [expand, setExpand] = useState(false);
-
   const drawer = (
     <>
       <Toolbar />
       <Box sx={{ overflow: "auto" }}>
         <List>
-          <ListItemButton component={Link} to="/admin">
-            <ListItemIcon>
-              <DashboardIcon />
-            </ListItemIcon>
-            <ListItemText primary="Dashboard" />
-          </ListItemButton>
-
-          <ListItemButton onClick={() => setExpand(!expand)}>
-            <ListItemIcon>
-              <MovieIcon />
-            </ListItemIcon>
-            <ListItemText primary="Movies" />
-            {expand ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={expand} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItemButton
-                sx={{ pl: 4 }}
-                component={Link}
-                to="/admin/movies"
-              >
-                <ListItemIcon>
-                  <BallotOutlinedIcon />
-                </ListItemIcon>
-                <ListItemText primary="Manage" />
-              </ListItemButton>
-            </List>
-            <List component="div" disablePadding>
-              <ListItemButton
-                sx={{ pl: 4 }}
-                component={Link}
-                to="/admin/movies/new"
-              >
-                <ListItemIcon>
-                  <AddBoxOutlinedIcon />
-                </ListItemIcon>
-                <ListItemText primary="Add" />
-              </ListItemButton>
-            </List>
-          </Collapse>
+          <SingleSidebarItem
+            icon={DashboardIcon}
+            to="/admin"
+            text="Dashboard"
+          />
+          <ComplexSidebarItem
+            icon={MovieIcon}
+            text="Movies"
+            menu={[
+              {
+                icon: BallotOutlinedIcon,
+                to: "/admin/movies",
+                text: "Manage",
+              },
+              {
+                icon: AddBoxOutlinedIcon,
+                to: "/admin/movies/new",
+                text: "Add",
+              },
+            ]}
+          />
         </List>
       </Box>
     </>

@@ -23,6 +23,11 @@ const AdminHeader = ({ onDrawerToggle }) => {
   const me = useSelector((state) => state.me);
   const [anchorEl, setAnchorEl] = useState(null);
 
+  const handleClickMyProfileMenuItem = () => {
+    setAnchorEl(null);
+    navigate("/admin/my-profile");
+  };
+
   const handleSignOut = () => {
     localStorage.removeItem(ACCESS_TOKEN);
     dispatch(createAction(actionType.SIGNOUT_SUCCESS));
@@ -79,7 +84,9 @@ const AdminHeader = ({ onDrawerToggle }) => {
               open={Boolean(anchorEl)}
               onClose={() => setAnchorEl(null)}
             >
-              <MenuItem onClick={() => setAnchorEl(null)}>My profile</MenuItem>
+              <MenuItem onClick={handleClickMyProfileMenuItem}>
+                My profile
+              </MenuItem>
               <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
             </Menu>
           </Box>
