@@ -23,7 +23,7 @@ const LazyLoadingScreen = () => {
       width="100%"
       height="100%"
       zIndex="1600"
-      bgcolor="rgba(255,255,255,0.95)"
+      // bgcolor="rgba(255,255,255,0.95)"
     >
       <CircularProgress />
     </Box>

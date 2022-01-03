@@ -14,7 +14,8 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
+import TodayIcon from "@mui/icons-material/Today";
+import LaunchIcon from "@mui/icons-material/Launch";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
@@ -84,10 +85,10 @@ const MovieManagement = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Id</TableCell>
+              <TableCell>#</TableCell>
               <TableCell>Image</TableCell>
               <TableCell>Movie name</TableCell>
-              <TableCell align="center">Action</TableCell>
+              <TableCell align="center">Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -115,6 +116,18 @@ const MovieManagement = () => {
                     </TableCell>
                     <TableCell>{movie.tenPhim}</TableCell>
                     <TableCell align="center">
+                      <Tooltip title="Showtimes" arrow>
+                        <IconButton
+                          size="small"
+                          color="secondary"
+                          sx={{ marginRight: 1 }}
+                          onClick={() =>
+                            navigate(`/admin/movies/${movie.maPhim}/showtimes`)
+                          }
+                        >
+                          <TodayIcon />
+                        </IconButton>
+                      </Tooltip>
                       <Tooltip title="Edit" arrow>
                         <IconButton
                           size="small"
@@ -124,7 +137,7 @@ const MovieManagement = () => {
                             navigate(`/admin/movies/${movie.maPhim}/edit`)
                           }
                         >
-                          <EditIcon />
+                          <LaunchIcon />
                         </IconButton>
                       </Tooltip>
                       <Tooltip title="Delete" arrow>

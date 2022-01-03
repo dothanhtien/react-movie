@@ -32,6 +32,7 @@ import Swal from "sweetalert2";
 import { GROUP_ID } from "../../../../constants/appConfig";
 import NoImage from "../../../../assets/img/no-image.png";
 import useStyles from "./style";
+import BackButton from "../../../../components/UI/Buttons/BackButton";
 
 const EditMovie = () => {
   const params = useParams();
@@ -189,7 +190,8 @@ const EditMovie = () => {
 
   return (
     <>
-      <Typography variant="h3" component="h1">
+      <BackButton />
+      <Typography variant="h3" component="h1" mb={2}>
         Edit Movie
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>

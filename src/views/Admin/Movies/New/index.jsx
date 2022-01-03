@@ -164,7 +164,7 @@ const NewMovie = () => {
 
   return (
     <>
-      <Typography variant="h3" component="h1">
+      <Typography variant="h3" component="h1" mb={2}>
         New Movie
       </Typography>
 
