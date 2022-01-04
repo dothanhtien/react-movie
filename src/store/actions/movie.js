@@ -45,13 +45,30 @@ export const fetchMovieDetail = (id) => {
     try {
       const res = await movieService.fetchMovieDetail(id);
 
-      setTimeout(() => {
-        dispatch(
-          createAction(actionType.FETCH_MOVIE_SUCCESS, res.data.content)
-        );
-      }, 500);
+      dispatch(createAction(actionType.FETCH_MOVIE_SUCCESS, res.data.content));
     } catch (err) {
-      console.log({ ...err });
+      console.log(err);
+    }
+  };
+};
+
+export const fetchMovieShowtimes = (id) => {
+  return async (dispatch) => {
+    dispatch(createAction(actionType.FETCH_MOVIE_SHOWTIMES_REQUEST));
+    try {
+      const res = await movieService.fetchMovieShowtimes(id);
+
+      if (res.status === 200) {
+        dispatch(
+          createAction(
+            actionType.FETCH_MOVIE_SHOWTIMES_SUCCESS,
+            res.data.content
+          )
+        );
+      }
+      console.log(res);
+    } catch (err) {
+      console.log(err);
     }
   };
 };

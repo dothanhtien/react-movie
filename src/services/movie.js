@@ -36,6 +36,12 @@ class MovieService {
     return axiosClient.get(`/api/QuanLyPhim/LayThongTinPhim?MaPhim=${id}`);
   }
 
+  fetchMovieShowtimes(id) {
+    return axiosClient.get("/api/QuanLyRap/LayThongTinLichChieuPhim", {
+      params: { MaPhim: id },
+    });
+  }
+
   createMovie(data) {
     return axiosClient.post("/api/QuanLyPhim/ThemPhimUploadHinh", data);
   }
