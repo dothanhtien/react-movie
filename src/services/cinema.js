@@ -7,6 +7,16 @@ class CinemaService {
       params: { maNhom: GROUP_ID, ...params },
     });
   }
+
+  fetchCinemaComplexes(params) {
+    return axiosClient.get("/api/QuanLyRap/LayThongTinHeThongRap", { params });
+  }
+
+  fetchCinemaGroupByCinemaComplex(cinemaComplex) {
+    return axiosClient.get("/api/QuanLyRap/LayThongTinCumRapTheoHeThong", {
+      params: { maHeThongRap: cinemaComplex },
+    });
+  }
 }
 
 export default CinemaService;

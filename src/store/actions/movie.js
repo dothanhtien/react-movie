@@ -66,7 +66,6 @@ export const fetchMovieShowtimes = (id) => {
           )
         );
       }
-      console.log(res);
     } catch (err) {
       console.log(err);
     }

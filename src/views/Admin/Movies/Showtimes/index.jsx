@@ -1,6 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
+  Button,
   Paper,
+  Stack,
   Tab,
   Table,
   TableBody,
@@ -16,6 +18,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchMovieShowtimes } from "../../../../store/actions/movie";
 import { format } from "date-fns";
 import BackButton from "../../../../components/UI/Buttons/BackButton";
+import NewShowtimeModal from "../../../../components/Admin/Movies/NewShowtimeModal";
+import Swal from "sweetalert2";
 import useStyles from "./style";
 
 const TabPanel = (props) => {
@@ -40,6 +44,7 @@ const MovieShowtimes = () => {
   const dispatch = useDispatch();
   const movieShowtimes = useSelector((state) => state.movie.movieShowtimes);
   const [value, setValue] = React.useState(0);
+  const [showNewShowtimeModal, setShowNewShowtimeModal] = useState(false);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -56,13 +61,42 @@ const MovieShowtimes = () => {
     };
   };
 
+  const handleCreateShowtimeSuccess = () => {
+    dispatch(fetchMovieShowtimes(params.id));
+
+    Swal.fire({
+      icon: "success",
+      title: "Movie showtime created successfully",
+      // timer: 5000,
+      showConfirmButton: false,
+    });
+  };
+
   return (
     <>
       <BackButton />
-      <Typography variant="h3" component="h1" mb={2}>
-        Movie Showtimes
+
+      <Stack
+        direction={{ xs: "column-reverse", md: "row" }}
+        justifyContent="space-between"
+        alignItems={{ xs: "flex-start", md: "center" }}
+        spacing={{ xs: 2, md: 0 }}
+      >
+        <Typography variant="h3" component="h1" mb={2}>
+          Movie Showtimes
+        </Typography>
+
+        <Button
+          variant="contained"
+          onClick={() => setShowNewShowtimeModal(true)}
+        >
+          New showtime
+        </Button>
+      </Stack>
+
+      <Typography variant="h6" mb={2}>
+        {movieShowtimes?.tenPhim}
       </Typography>
-      <Typography variant="h6">{movieShowtimes?.tenPhim}</Typography>
 
       <Box className={classes.tabsContainer}>
         <Tabs
@@ -155,6 +189,15 @@ const MovieShowtimes = () => {
             </TabPanel>
           );
         })}
+
+      {showNewShowtimeModal && (
+        <NewShowtimeModal
+          open={showNewShowtimeModal}
+          onClose={() => setShowNewShowtimeModal(false)}
+          onSuccess={handleCreateShowtimeSuccess}
+          movieId={params.id}
+        />
+      )}
     </>
   );
 };

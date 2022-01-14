@@ -16,3 +16,15 @@ export const fetchMovieShowtimeDetails = (params) => {
     }
   };
 };
+
+export const createMovieShowtime = (data, callback) => {
+  return async (dispatch) => {
+    try {
+      await bookingService.createMovieShowtime(data);
+
+      if (callback) callback();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
