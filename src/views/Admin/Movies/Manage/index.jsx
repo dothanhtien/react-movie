@@ -165,7 +165,11 @@ const MovieManagement = () => {
           color="primary"
           shape="rounded"
           sx={{ marginTop: 2 }}
-          count={pagination.totalPages}
+          count={
+            pagination.totalCount % 10 > 0
+              ? pagination.totalPages
+              : Math.floor(pagination.totalCount / 10)
+          }
           page={pagination.currentPage}
           onChange={handleChangePagination}
         />
