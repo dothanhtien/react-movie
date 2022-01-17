@@ -30,6 +30,8 @@ const MovieShowtimes = React.lazy(() =>
   import("./views/Admin/Movies/Showtimes")
 );
 
+const ManageUser = React.lazy(() => import("./views/Admin/Users/Manage"));
+
 const MyProfile = React.lazy(() => import("./views/Admin/MyProfile"));
 
 const App = () => {
@@ -121,6 +123,15 @@ const App = () => {
               element={
                 <RequireAuth redirectPath="/signin">
                   <MovieShowtimes />
+                </RequireAuth>
+              }
+            />
+
+            <Route
+              path="/admin/users"
+              element={
+                <RequireAuth redirectPath="/signin">
+                  <ManageUser />
                 </RequireAuth>
               }
             />

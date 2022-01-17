@@ -6,9 +6,10 @@ import auth from "./reducers/auth";
 import me from "./reducers/me";
 import movie from "./reducers/movie";
 import cinema from "./reducers/cinema";
+import user from "./reducers/user";
 import loading from "./reducers/loading";
 
-const reducer = combineReducers({ auth, me, movie, cinema, loading });
+const reducer = combineReducers({ auth, me, movie, cinema, user, loading });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
