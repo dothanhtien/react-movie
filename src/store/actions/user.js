@@ -23,3 +23,36 @@ export const fetchUsersWithPagination = (params) => {
     }
   };
 };
+
+export const fetchUserTypes = () => {
+  return async (dispatch) => {
+    try {
+      const res = await userService.fetchUserTypes();
+
+      if (res.status === 200) {
+        dispatch(
+          createAction(actionType.FETCH_USER_TYPES_SUCCESS, res.data.content)
+        );
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const createUser = (data, callback) => {
+  return async (dispatch) => {
+    dispatch(createAction(actionType.CREATE_USER_REQUEST));
+    try {
+      await userService.createUser(data);
+
+      dispatch(createAction(actionType.CREATE_USER_SUCCESS));
+      if (callback) callback();
+    } catch (err) {
+      console.log(err);
+      dispatch(
+        createAction(actionType.CREATE_USER_FAILURE, err.response?.data.content)
+      );
+    }
+  };
+};

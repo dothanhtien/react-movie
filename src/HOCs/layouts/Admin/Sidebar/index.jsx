@@ -7,7 +7,7 @@ import BallotOutlinedIcon from "@mui/icons-material/BallotOutlined";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import SingleSidebarItem from "./SingleSidebarItem";
 import ComplexSidebarItem from "./ComplexSidebarItem";
-import PeopleIcon from '@mui/icons-material/People';
+import PeopleIcon from "@mui/icons-material/People";
 
 const AdminSidebar = ({ open, onDrawerToggle, window }) => {
   const drawer = (
@@ -46,6 +46,11 @@ const AdminSidebar = ({ open, onDrawerToggle, window }) => {
                 icon: BallotOutlinedIcon,
                 to: "/admin/users",
                 text: "Manage",
+              },
+              {
+                icon: AddBoxOutlinedIcon,
+                to: "/admin/users/new",
+                text: "Add",
               },
             ]}
           />

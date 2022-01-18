@@ -101,9 +101,9 @@ const ManageUsers = () => {
           shape="rounded"
           sx={{ marginTop: 2 }}
           count={
-            pagination.totalCount % pagination.count > 0
+            pagination.totalCount % 20 > 0
               ? pagination.totalPages
-              : Math.floor(pagination.totalCount / pagination.count)
+              : Math.floor(pagination.totalCount / 20)
           }
           page={pagination.currentPage}
           onChange={handleChangePagination}

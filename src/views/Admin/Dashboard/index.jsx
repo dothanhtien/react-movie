@@ -41,7 +41,7 @@ const Dashboard = () => {
             background="linear-gradient(to right, rgb(182, 244, 146), rgb(51, 139, 147))"
             icon={GroupIcon}
             text="User list"
-            link="/admin"
+            link="/admin/users"
           />
         </Grid>
 
@@ -50,7 +50,7 @@ const Dashboard = () => {
             background="linear-gradient( 109.6deg,  rgba(156,252,248,1) 11.2%, rgba(110,123,251,1) 91.1% )"
             icon={PersonAddAltIcon}
             text="Create user"
-            link="/admin"
+            link="/admin/new"
           />
         </Grid>
 
