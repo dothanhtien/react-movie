@@ -56,3 +56,17 @@ export const createUser = (data, callback) => {
     }
   };
 };
+
+export const deleteUser = (username, callback) => {
+  return async (dispatch) => {
+    dispatch(createAction(actionType.DELETE_USER_REQUEST));
+    try {
+      await userService.deleteUser(username);
+
+      dispatch(createAction(actionType.DELETE_USER_SUCCESS));
+      if (callback) callback();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};

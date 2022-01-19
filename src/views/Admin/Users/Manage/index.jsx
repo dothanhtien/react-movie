@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   CircularProgress,
   IconButton,
@@ -16,16 +16,25 @@ import {
 import LaunchIcon from "@mui/icons-material/Launch";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUsersWithPagination } from "../../../../store/actions/user";
+import {
+  deleteUser,
+  fetchUsersWithPagination,
+} from "../../../../store/actions/user";
 import { createLoadingSelector } from "../../../../store/selector";
+import DeleteUserModal from "../../../../components/Admin/Users/DeleteUserModal";
+import Swal from "sweetalert2";
 
 const ManageUsers = () => {
   const dispatch = useDispatch();
   const fetchingUsersSelector = createLoadingSelector([
     "FETCH_USERS_WITH_PAGINATION",
   ]);
+  const deletingUserSelector = createLoadingSelector(["DELETE_USER"]);
   const isFetchingUsers = useSelector((state) => fetchingUsersSelector(state));
+  const isDeletingUser = useSelector((state) => deletingUserSelector(state));
   const { userList, pagination } = useSelector((state) => state.user);
+  const [showDeleteUserModal, setShowDeleteUserModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   useEffect(() => {
     dispatch(fetchUsersWithPagination());
@@ -33,6 +42,31 @@ const ManageUsers = () => {
 
   const handleChangePagination = (e, page) => {
     dispatch(fetchUsersWithPagination({ soTrang: page }));
+  };
+
+  const handleShowConfirmDeleteUserModal = (user) => {
+    setSelectedUser(user);
+    setShowDeleteUserModal(true);
+  };
+
+  const handleDeleteUser = () => {
+    dispatch(
+      deleteUser(selectedUser.taiKhoan, () => {
+        // hide Confirm delete movie modal
+        setShowDeleteUserModal(false);
+
+        // show success modal
+        Swal.fire({
+          icon: "success",
+          title: "User deleted successfully",
+          // timer: 5000,
+          showConfirmButton: false,
+        });
+
+        // fetch movie list => NEED TO BE IMPLEMENTED
+        dispatch(fetchUsersWithPagination());
+      })
+    );
   };
 
   return (
@@ -81,7 +115,7 @@ const ManageUsers = () => {
                         <IconButton
                           size="small"
                           color="error"
-                          onClick={() => console.log("delete user")}
+                          onClick={() => handleShowConfirmDeleteUserModal(user)}
                         >
                           <DeleteIcon />
                         </IconButton>
@@ -107,6 +141,16 @@ const ManageUsers = () => {
           }
           page={pagination.currentPage}
           onChange={handleChangePagination}
+        />
+      )}
+
+      {showDeleteUserModal && (
+        <DeleteUserModal
+          user={selectedUser}
+          open={showDeleteUserModal}
+          onClose={() => setShowDeleteUserModal(false)}
+          isDeleting={isDeletingUser}
+          onDelete={handleDeleteUser}
         />
       )}
     </>

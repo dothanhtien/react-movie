@@ -48,6 +48,12 @@ class UserService {
       ...data,
     });
   }
+
+  deleteUser(username) {
+    return axiosClient.delete("/api/QuanLyNguoiDung/XoaNguoiDung", {
+      params: { TaiKhoan: username },
+    });
+  }
 }
 
 export default UserService;
