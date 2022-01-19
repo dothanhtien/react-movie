@@ -32,6 +32,7 @@ const MovieShowtimes = React.lazy(() =>
 
 const ManageUsers = React.lazy(() => import("./views/Admin/Users/Manage"));
 const NewUser = React.lazy(() => import("./views/Admin/Users/New"));
+const EditUser = React.lazy(() => import("./views/Admin/Users/Edit"));
 
 const MyProfile = React.lazy(() => import("./views/Admin/MyProfile"));
 
@@ -142,6 +143,15 @@ const App = () => {
               element={
                 <RequireAuth redirectPath="/signin">
                   <NewUser />
+                </RequireAuth>
+              }
+            />
+
+            <Route
+              path="/admin/users/:username/edit"
+              element={
+                <RequireAuth redirectPath="/signin">
+                  <EditUser />
                 </RequireAuth>
               }
             />

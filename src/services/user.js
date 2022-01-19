@@ -42,8 +42,30 @@ class UserService {
     return axiosClient.get("/api/QuanLyNguoiDung/LayDanhSachLoaiNguoiDung");
   }
 
+  fetchUserDetail(username) {
+    return axiosClient.post(
+      `/api/QuanLyNguoiDung/LayThongTinNguoiDung?taiKhoan=${username}`
+    );
+  }
+
+  findUsers(keyword) {
+    return axiosClient.get("/api/QuanLyNguoiDung/TimKiemNguoiDung", {
+      params: {
+        MaNhom: GROUP_ID,
+        tuKhoa: keyword,
+      },
+    });
+  }
+
   createUser(data) {
     return axiosClient.post("/api/QuanLyNguoiDung/ThemNguoiDung", {
+      maNhom: GROUP_ID,
+      ...data,
+    });
+  }
+
+  updateUser(data) {
+    return axiosClient.post("/api/QuanLyNguoiDung/CapNhatThongTinNguoiDung", {
       maNhom: GROUP_ID,
       ...data,
     });

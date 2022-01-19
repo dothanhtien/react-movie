@@ -4,6 +4,7 @@ const initialState = {
   userList: [],
   pagination: null,
   userTypes: [],
+  userDetail: null,
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -15,6 +16,9 @@ const reducer = (state = initialState, { type, payload }) => {
       return { ...state };
     case actionType.FETCH_USER_TYPES_SUCCESS:
       state.userTypes = payload;
+      return { ...state };
+    case actionType.FETCH_USER_DETAIL_SUCCESS:
+      state.userDetail = payload;
       return { ...state };
     default:
       return state;

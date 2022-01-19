@@ -23,9 +23,11 @@ import {
 import { createLoadingSelector } from "../../../../store/selector";
 import DeleteUserModal from "../../../../components/Admin/Users/DeleteUserModal";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const ManageUsers = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const fetchingUsersSelector = createLoadingSelector([
     "FETCH_USERS_WITH_PAGINATION",
   ]);
@@ -106,7 +108,9 @@ const ManageUsers = () => {
                           size="small"
                           color="primary"
                           sx={{ marginRight: 1 }}
-                          onClick={() => console.log("edit user")}
+                          onClick={() =>
+                            navigate(`/admin/users/${user.taiKhoan}/edit`)
+                          }
                         >
                           <LaunchIcon />
                         </IconButton>
