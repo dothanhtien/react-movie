@@ -10,26 +10,41 @@ const AuthLayout = () => {
   const classes = useStyles();
 
   return (
-    <Box height="100vh" display="flex" alignItems="center">
+    <Box height="100vh">
       <Header />
 
-      <Container fixed>
-        <Grid container justifyContent="center" alignItems="center" spacing={0}>
-          <Grid item md={6} className={classes.gridImage}>
-            <AuthImage className={classes.authImage} />
-          </Grid>
-
+      <Box
+        sx={{
+          height: (theme) =>
+            `calc(100vh - ${theme.mixins.toolbar.minHeight}px)`,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Container fixed>
           <Grid
-            item
-            md={6}
-            display="flex"
+            container
             justifyContent="center"
             alignItems="center"
+            spacing={0}
           >
-            <Outlet />
+            <Grid item md={6} className={classes.gridImage}>
+              <AuthImage className={classes.authImage} />
+            </Grid>
+
+            <Grid
+              item
+              md={6}
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Outlet />
+            </Grid>
           </Grid>
-        </Grid>
-      </Container>
+        </Container>
+      </Box>
     </Box>
   );
 };
