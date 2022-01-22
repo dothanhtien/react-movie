@@ -192,7 +192,7 @@ const EditMovie = () => {
     <>
       <BackButton />
       <Typography variant="h3" component="h1" mb={2}>
-        Edit Movie
+        Edit movie
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Controller

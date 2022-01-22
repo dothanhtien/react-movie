@@ -93,7 +93,7 @@ const EditUser = () => {
     <>
       <BackButton />
       <Typography variant="h3" component="h1" mb={2}>
-        Edit User
+        Edit user
       </Typography>
 
       <form onSubmit={handleSubmit(onSubmit)}>

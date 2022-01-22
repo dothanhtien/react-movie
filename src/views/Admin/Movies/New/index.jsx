@@ -165,7 +165,7 @@ const NewMovie = () => {
   return (
     <>
       <Typography variant="h3" component="h1" mb={2}>
-        New Movie
+        New movie
       </Typography>
 
       <form onSubmit={handleSubmit(onSubmit)}>

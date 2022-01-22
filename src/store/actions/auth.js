@@ -45,9 +45,29 @@ export const fetchMe = async (dispatch) => {
   } catch (err) {
     console.log(err);
 
-    if (err.response.status === 401) {
+    if (err.response?.status === 401) {
       localStorage.removeItem(ACCESS_TOKEN);
       window.location.reload();
     }
   }
+};
+
+export const updateProfile = (data, callback) => {
+  return async (dispatch) => {
+    dispatch(createAction(actionType.UPDATE_PROFILE_REQUEST));
+    try {
+      await authService.updateProfile(data);
+
+      dispatch(createAction(actionType.UPDATE_PROFILE_SUCCESS));
+      if (callback) callback();
+    } catch (err) {
+      console.log(err);
+      dispatch(
+        createAction(
+          actionType.UPDATE_PROFILE_FAILURE,
+          err.response?.data.content
+        )
+      );
+    }
+  };
 };
