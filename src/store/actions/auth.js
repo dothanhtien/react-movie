@@ -16,7 +16,7 @@ export const signIn = (data, callback) => {
       if (callback) callback();
     } catch (err) {
       console.log(err);
-      dispatch(createAction(actionType.SET_AUTH_ERROR, err.response.data));
+      dispatch(createAction(actionType.SET_AUTH_ERROR, err.response?.data));
     }
   };
 };

@@ -84,9 +84,11 @@ const AdminHeader = ({ onDrawerToggle }) => {
               open={Boolean(anchorEl)}
               onClose={() => setAnchorEl(null)}
             >
-              <MenuItem onClick={handleClickMyProfileMenuItem}>
-                My profile
-              </MenuItem>
+              {me?.maLoaiNguoiDung === "QuanTri" && (
+                <MenuItem onClick={handleClickMyProfileMenuItem}>
+                  My profile
+                </MenuItem>
+              )}
               <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
             </Menu>
           </Box>

@@ -8,8 +8,11 @@ import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import SingleSidebarItem from "./SingleSidebarItem";
 import ComplexSidebarItem from "./ComplexSidebarItem";
 import PeopleIcon from "@mui/icons-material/People";
+import { useSelector } from "react-redux";
 
 const AdminSidebar = ({ open, onDrawerToggle, window }) => {
+  const { me } = useSelector((state) => state);
+
   const drawer = (
     <>
       <Toolbar />
@@ -21,39 +24,43 @@ const AdminSidebar = ({ open, onDrawerToggle, window }) => {
             text="Dashboard"
           />
 
-          <ComplexSidebarItem
-            icon={MovieIcon}
-            text="Movies"
-            menu={[
-              {
-                icon: BallotOutlinedIcon,
-                to: "/admin/movies",
-                text: "Manage",
-              },
-              {
-                icon: AddBoxOutlinedIcon,
-                to: "/admin/movies/new",
-                text: "Add",
-              },
-            ]}
-          />
+          {me?.maLoaiNguoiDung === "QuanTri" && (
+            <ComplexSidebarItem
+              icon={MovieIcon}
+              text="Movies"
+              menu={[
+                {
+                  icon: BallotOutlinedIcon,
+                  to: "/admin/movies",
+                  text: "Manage",
+                },
+                {
+                  icon: AddBoxOutlinedIcon,
+                  to: "/admin/movies/new",
+                  text: "Add",
+                },
+              ]}
+            />
+          )}
 
-          <ComplexSidebarItem
-            icon={PeopleIcon}
-            text="Users"
-            menu={[
-              {
-                icon: BallotOutlinedIcon,
-                to: "/admin/users",
-                text: "Manage",
-              },
-              {
-                icon: AddBoxOutlinedIcon,
-                to: "/admin/users/new",
-                text: "Add",
-              },
-            ]}
-          />
+          {me?.maLoaiNguoiDung === "QuanTri" && (
+            <ComplexSidebarItem
+              icon={PeopleIcon}
+              text="Users"
+              menu={[
+                {
+                  icon: BallotOutlinedIcon,
+                  to: "/admin/users",
+                  text: "Manage",
+                },
+                {
+                  icon: AddBoxOutlinedIcon,
+                  to: "/admin/users/new",
+                  text: "Add",
+                },
+              ]}
+            />
+          )}
         </List>
       </Box>
     </>

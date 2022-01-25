@@ -5,7 +5,7 @@ import { Alert, Button, TextField, Typography } from "@mui/material";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { signIn } from "../../../store/actions/auth";
+import { fetchMe, signIn } from "../../../store/actions/auth";
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -30,6 +30,7 @@ const SignIn = () => {
   const onSubmit = (data) => {
     dispatch(
       signIn(data, () => {
+        dispatch(fetchMe);
         reset();
 
         if (location.state && location.state.from.pathname !== "/admin") {
